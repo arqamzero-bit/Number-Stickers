@@ -1,0 +1,1342 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>ملصقات الطاولات - تحكم كامل بالورق</title>
+    <!-- خطوط Google - 10 خطوط عربية متنوعة -->
+    <link href="https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700;800&family=Cairo:wght@200;300;400;500;600;700;800;900&family=El+Messiri:wght@400;500;600;700&family=IBM+Plex+Sans+Arabic:wght@100;200;300;400;500;600;700&family=Lalezar&family=Noto+Kufi+Arabic:wght@100;200;300;400;500;600;700;800;900&family=Reem+Kufi:wght@400;500;600;700&family=Rubik:wght@300;400;500;600;700;800;900&family=Scheherazade+New:wght@400;500;600;700&family=Tajawal:wght@200;300;400;500;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #eef2f7;
+            padding: 20px;
+            font-family: 'Segoe UI', Tahoma, system-ui, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .app-container {
+            max-width: 1400px;
+            width: 100%;
+            background: white;
+            border-radius: 32px;
+            padding: 28px 28px 36px;
+            box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.2);
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .subhead {
+            color: #475569;
+            font-size: 0.95rem;
+            margin-bottom: 24px;
+            border-right: 4px solid #2563eb;
+            padding-right: 14px;
+        }
+
+        /* حقوق الملكية */
+        .copyright {
+            text-align: center;
+            padding: 18px 0 0 0;
+            margin-top: 28px;
+            border-top: 2px solid #e2e8f0;
+            font-size: 0.9rem;
+            color: #64748b;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            position: relative;
+        }
+        .copyright span {
+            color: #0f172a;
+            font-weight: 700;
+        }
+        .copyright .heart {
+            color: #e11d48;
+        }
+
+        /* لوحة التحكم الرئيسية */
+        .controls-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 16px 14px;
+            background: #f8fafc;
+            padding: 22px 22px 26px;
+            border-radius: 24px;
+            margin-bottom: 16px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .control-group label {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #334155;
+        }
+
+        .control-group input,
+        .control-group select {
+            padding: 10px 14px;
+            border: 1px solid #d1d9e6;
+            border-radius: 16px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            background: white;
+            width: 100%;
+            color: #0f172a;
+            transition: 0.2s;
+        }
+
+        .control-group input:focus,
+        .control-group select:focus {
+            outline: none;
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+        }
+
+        .range-group {
+            grid-column: span 2;
+            display: flex;
+            gap: 14px;
+            flex-wrap: wrap;
+            background: #f1f5f9;
+            padding: 12px 16px;
+            border-radius: 20px;
+            border: 1px dashed #94a3b8;
+        }
+        .range-group .control-group {
+            flex: 1;
+            min-width: 100px;
+        }
+
+        .method-toggle {
+            grid-column: 1 / -1;
+            display: flex;
+            gap: 16px;
+            align-items: center;
+            flex-wrap: wrap;
+            padding: 4px 0 2px;
+        }
+        .method-toggle label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 600;
+            color: #1e293b;
+            cursor: pointer;
+            background: white;
+            padding: 6px 18px;
+            border-radius: 40px;
+            border: 2px solid #e2e8f0;
+            transition: 0.2s;
+            font-size: 0.9rem;
+        }
+        .method-toggle label.active {
+            border-color: #2563eb;
+            background: #eff6ff;
+        }
+        .method-toggle input[type="radio"] {
+            width: 17px;
+            height: 17px;
+            accent-color: #2563eb;
+        }
+
+        .actions {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 12px;
+            margin-top: 2px;
+            grid-column: 1 / -1;
+        }
+
+        .btn {
+            padding: 11px 26px;
+            border: none;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            background: white;
+            color: #1e293b;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: 0.2s;
+            border: 1px solid #d1d9e6;
+        }
+        .btn-primary {
+            background: #0f172a;
+            color: white;
+            border: none;
+            box-shadow: 0 6px 14px -4px #0f172a60;
+        }
+        .btn-primary:hover { background: #1e293b; }
+        .btn-success {
+            background: #0b3b2c;
+            color: white;
+            border: none;
+        }
+        .btn-success:hover { background: #14532d; }
+        .btn-outline { background: transparent; border: 1px solid #cbd5e1; }
+        .btn-outline:hover { background: #f1f5f9; }
+        .btn-danger {
+            background: #f1f5f9;
+            color: #b91c1c;
+            border: 1px solid #fecaca;
+        }
+        .btn-danger:hover { background: #fee2e2; }
+        .btn-print-settings {
+            background: #f0f9ff;
+            color: #0369a1;
+            border: 2px solid #7dd3fc;
+        }
+        .btn-print-settings:hover { background: #e0f2fe; }
+        .btn-pdf {
+            background: #fef3c7;
+            color: #92400e;
+            border: 2px solid #fcd34d;
+        }
+        .btn-pdf:hover { background: #fde68a; }
+
+        /* لوحة ضبط الطباعة */
+        .print-settings-panel {
+            background: #f8fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 24px;
+            padding: 20px 24px 24px;
+            margin-bottom: 20px;
+            display: none;
+            transition: 0.3s;
+        }
+        .print-settings-panel.open {
+            display: block;
+        }
+
+        .settings-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .settings-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+            gap: 14px 18px;
+        }
+
+        .settings-group {
+            background: white;
+            padding: 14px 16px;
+            border-radius: 18px;
+            border: 1px solid #e2e8f0;
+        }
+        .settings-group h4 {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: #475569;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .settings-row {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            margin-bottom: 6px;
+            flex-wrap: wrap;
+        }
+        .settings-row label {
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: #64748b;
+            min-width: 30px;
+        }
+        .settings-row input[type="number"] {
+            width: 70px;
+            padding: 6px 8px;
+            border: 1px solid #d1d9e6;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            text-align: center;
+        }
+        .settings-row input[type="number"]:focus {
+            outline: none;
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+        }
+        .settings-row .unit {
+            font-size: 0.7rem;
+            color: #94a3b8;
+            font-weight: 600;
+        }
+
+        .move-buttons {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            margin-top: 6px;
+        }
+        .move-btn {
+            padding: 4px 14px;
+            border: 1px solid #cbd5e1;
+            border-radius: 30px;
+            background: white;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.15s;
+            color: #1e293b;
+        }
+        .move-btn:hover { background: #f1f5f9; border-color: #94a3b8; }
+        .move-btn.primary { background: #eef2ff; border-color: #818cf8; color: #4338ca; }
+        .move-btn.primary:hover { background: #dbeafe; }
+
+        .settings-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 14px;
+            padding-top: 14px;
+            border-top: 1px solid #e2e8f0;
+        }
+        .btn-sm {
+            padding: 6px 18px;
+            font-size: 0.8rem;
+            border-radius: 30px;
+            border: 1px solid #d1d9e6;
+            background: white;
+            cursor: pointer;
+            font-weight: 600;
+            transition: 0.15s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .btn-sm:hover { background: #f1f5f9; }
+        .btn-sm.primary { background: #2563eb; color: white; border: none; }
+        .btn-sm.primary:hover { background: #1d4ed8; }
+        .btn-sm.danger { background: #fee2e2; color: #b91c1c; border: 1px solid #fecaca; }
+        .btn-sm.danger:hover { background: #fecaca; }
+
+        /* معاينة */
+        .preview-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 18px 0 12px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .preview-header h2 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #0f172a;
+        }
+        .badge {
+            background: #eef2ff;
+            color: #4338ca;
+            padding: 4px 16px;
+            border-radius: 40px;
+            font-weight: 500;
+            font-size: 0.85rem;
+        }
+
+        .pages-container {
+            display: flex;
+            flex-direction: column;
+            gap: 28px;
+            margin-top: 6px;
+        }
+
+        /* ======== صفحة ديناميكية ======== */
+        .a4-page {
+            background: white;
+            box-shadow: 0 8px 24px -8px rgba(0, 0, 0, 0.12);
+            border-radius: 20px;
+            padding: 10px;
+            border: 1px solid #e2e8f0;
+            position: relative;
+            width: var(--page-width, 210mm);
+            min-height: var(--page-height, 297mm);
+            box-sizing: border-box;
+            margin: 0 auto;
+        }
+
+        .page-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #94a3b8;
+            margin-bottom: 8px;
+            padding-right: 4px;
+        }
+
+        .sticker-grid {
+            display: grid;
+            gap: var(--gap-h, 4mm) var(--gap-v, 4mm);
+            grid-template-columns: repeat(var(--cols, 4), 1fr);
+            direction: ltr;
+            justify-items: center;
+            align-items: center;
+            padding: var(--padding-top, 10mm) var(--padding-right, 10mm) var(--padding-bottom, 10mm) var(--padding-left, 10mm);
+            box-sizing: border-box;
+            transform: translate(var(--offset-x, 0mm), var(--offset-y, 0mm));
+        }
+
+        /* ======== الملصق ======== */
+        .sticker-item {
+            width: var(--sticker-width, 60mm);
+            height: var(--sticker-height, 60mm);
+            box-sizing: border-box;
+            background: #ffffff;
+            border-radius: 8mm;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            border: var(--border-mm, 3px) solid #0f172a;
+            box-shadow: 0 4mm 0 #0f172a, 0 6mm 14mm -4mm rgba(0, 0, 0, 0.25);
+            transform: translateY(-2mm);
+            background: linear-gradient(145deg, #ffffff, #f8fafc);
+            overflow: hidden;
+            padding: 0;
+            flex-shrink: 0;
+            break-inside: avoid;
+            page-break-inside: avoid;
+            font-family: var(--sticker-font, 'Cairo', sans-serif);
+            transition: all 0.1s ease;
+        }
+
+        .sticker-item .number-3d {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+            font-weight: 900;
+            color: #0f172a;
+            text-shadow: 
+                0 3mm 0 #b0b8c4,
+                0 4mm 8mm rgba(0, 0, 0, 0.10),
+                0 6mm 12mm rgba(0, 0, 0, 0.04);
+            transform: translateY(-2.5mm);
+            letter-spacing: 0.5px;
+            font-size: var(--number-size-mm, 18mm);
+            padding: 0 2mm;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            line-height: 1;
+        }
+
+        .sticker-item .number-3d[data-digits="1"] { font-size: var(--number-size-mm, 26mm); }
+        .sticker-item .number-3d[data-digits="2"] { font-size: var(--number-size-mm, 22mm); }
+        .sticker-item .number-3d[data-digits="3"] { font-size: var(--number-size-mm, 17mm); }
+        .sticker-item .number-3d[data-digits="4"] { font-size: var(--number-size-mm, 13mm); }
+        .sticker-item .number-3d[data-digits="5"] { font-size: var(--number-size-mm, 10.5mm); }
+        .sticker-item .number-3d[data-digits="6"] { font-size: var(--number-size-mm, 8.5mm); }
+
+        /* ======== إعدادات الطباعة الموحدة ======== */
+        @page {
+            size: var(--page-size, A4);
+            margin: 0;
+        }
+
+        /* ======== نمط الطباعة و PDF ======== */
+        @media print {
+            html, body {
+                background: white !important;
+                padding: 0 !important;
+                margin: 0 !important;
+                display: block !important;
+                width: 100% !important;
+                min-height: 100% !important;
+            }
+
+            .app-container {
+                box-shadow: none !important;
+                padding: 0 !important;
+                border-radius: 0 !important;
+                background: white !important;
+                max-width: 100% !important;
+                margin: 0 !important;
+                width: 100% !important;
+            }
+
+            .controls-grid,
+            .preview-header .badge,
+            .preview-header h2,
+            .subhead,
+            h1,
+            .no-print,
+            .print-settings-panel,
+            .copyright {
+                display: none !important;
+            }
+
+            .pages-container {
+                gap: 0 !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                display: block !important;
+            }
+
+            .a4-page {
+                box-shadow: none !important;
+                border-radius: 0 !important;
+                border: none !important;
+                padding: 0 !important;
+                margin: 0 !important;
+                page-break-after: always !important;
+                break-after: page !important;
+                background: white !important;
+                width: var(--page-width, 210mm) !important;
+                height: var(--page-height, 297mm) !important;
+                min-height: var(--page-height, 297mm) !important;
+                display: flex !important;
+                flex-direction: column !important;
+                justify-content: center !important;
+                align-items: center !important;
+                box-sizing: border-box !important;
+                position: relative !important;
+                overflow: visible !important;
+            }
+
+            .a4-page:last-child {
+                page-break-after: avoid !important;
+                break-after: avoid !important;
+            }
+
+            .page-label {
+                display: none !important;
+            }
+
+            .sticker-grid {
+                gap: var(--gap-h, 4mm) var(--gap-v, 4mm) !important;
+                grid-template-columns: repeat(var(--cols, 4), 1fr) !important;
+                justify-items: center !important;
+                align-items: center !important;
+                width: 100% !important;
+                padding: var(--padding-top, 10mm) var(--padding-right, 10mm) var(--padding-bottom, 10mm) var(--padding-left, 10mm) !important;
+                box-sizing: border-box !important;
+                transform: translate(var(--offset-x, 0mm), var(--offset-y, 0mm)) !important;
+                display: grid !important;
+            }
+
+            .sticker-item {
+                width: var(--sticker-width, 60mm) !important;
+                height: var(--sticker-height, 60mm) !important;
+                min-width: var(--sticker-width, 60mm) !important;
+                min-height: var(--sticker-height, 60mm) !important;
+                max-width: var(--sticker-width, 60mm) !important;
+                max-height: var(--sticker-height, 60mm) !important;
+                border: var(--border-mm, 3px) solid #0f172a !important;
+                border-radius: 8mm !important;
+                box-shadow: 0 3mm 0 #0f172a, 0 4mm 10mm rgba(0, 0, 0, 0.08) !important;
+                background: white !important;
+                transform: translateY(-1.5mm) !important;
+                break-inside: avoid !important;
+                page-break-inside: avoid !important;
+                flex-shrink: 0 !important;
+                box-sizing: border-box !important;
+                display: flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+                overflow: hidden !important;
+                padding: 0 !important;
+                font-family: var(--sticker-font, 'Cairo', sans-serif) !important;
+            }
+
+            .sticker-item .number-3d {
+                text-shadow: 0 2.5mm 0 #b0b8c4, 0 3mm 6mm rgba(0, 0, 0, 0.06) !important;
+                transform: translateY(-2mm) !important;
+                font-size: var(--number-size-mm, 18mm) !important;
+                display: flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+                width: 100% !important;
+                height: 100% !important;
+                padding: 0 2mm !important;
+                white-space: nowrap !important;
+                overflow: hidden !important;
+                text-overflow: ellipsis !important;
+                line-height: 1 !important;
+                font-weight: 900 !important;
+                color: #0f172a !important;
+                font-family: inherit !important;
+            }
+
+            * {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+                color-adjust: exact !important;
+            }
+        }
+
+        /* ======== استجابة للشاشات الصغيرة ======== */
+        @media (max-width: 700px) {
+            .controls-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 10px;
+                padding: 14px;
+            }
+            .range-group {
+                grid-column: span 2;
+                flex-direction: column;
+            }
+            .actions {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .btn {
+                justify-content: center;
+                padding: 10px 18px;
+                font-size: 0.85rem;
+            }
+            .app-container {
+                padding: 12px;
+            }
+            .method-toggle {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .settings-grid {
+                grid-template-columns: 1fr;
+            }
+            .a4-page {
+                width: 100% !important;
+                min-height: auto !important;
+                padding: 8px !important;
+            }
+            .sticker-item {
+                width: 45mm;
+                height: 45mm;
+            }
+            .sticker-item .number-3d {
+                font-size: 14mm !important;
+            }
+            .sticker-item .number-3d[data-digits="1"] { font-size: 20mm !important; }
+            .sticker-item .number-3d[data-digits="2"] { font-size: 17mm !important; }
+            .sticker-item .number-3d[data-digits="3"] { font-size: 13mm !important; }
+            .sticker-item .number-3d[data-digits="4"] { font-size: 10mm !important; }
+            .sticker-item .number-3d[data-digits="5"] { font-size: 8mm !important; }
+            .sticker-item .number-3d[data-digits="6"] { font-size: 6.5mm !important; }
+            h1 { font-size: 1.5rem; }
+            .subhead { font-size: 0.8rem; }
+            .preview-header h2 { font-size: 1.1rem; }
+            .copyright { font-size: 0.75rem; padding: 12px 0 0 0; margin-top: 18px; }
+        }
+
+        @media (max-width: 480px) {
+            .sticker-item {
+                width: 40mm;
+                height: 40mm;
+            }
+            .sticker-item .number-3d {
+                font-size: 12mm !important;
+            }
+            .sticker-item .number-3d[data-digits="1"] { font-size: 17mm !important; }
+            .sticker-item .number-3d[data-digits="2"] { font-size: 14mm !important; }
+            .sticker-item .number-3d[data-digits="3"] { font-size: 11mm !important; }
+            .sticker-item .number-3d[data-digits="4"] { font-size: 8.5mm !important; }
+            .sticker-item .number-3d[data-digits="5"] { font-size: 7mm !important; }
+            .sticker-item .number-3d[data-digits="6"] { font-size: 5.5mm !important; }
+            .controls-grid {
+                grid-template-columns: 1fr;
+                gap: 8px;
+            }
+            .range-group {
+                grid-column: span 1;
+            }
+            .settings-row input[type="number"] {
+                width: 55px;
+            }
+            .copyright { font-size: 0.65rem; }
+        }
+
+        .icon-print::before { content: "🖨️"; }
+        .icon-pdf::before { content: "📄"; }
+        .icon-reset::before { content: "🔄"; }
+        .icon-generate::before { content: "⚡"; }
+        .icon-settings::before { content: "⚙️"; }
+    </style>
+</head>
+<body>
+<div class="app-container" id="app">
+    <h1>🏷️ ملصقات الطاولات</h1>
+    <div class="subhead">مقاس قابل للتخصيص · خطوط ثلاثية الأبعاد · جميع أحجام الورق</div>
+
+    <div class="controls-grid" id="controls">
+        <div class="method-toggle no-print">
+            <label class="active" id="methodCountLabel">
+                <input type="radio" name="method" value="count" checked> ① عدد الأرقام
+            </label>
+            <label id="methodRangeLabel">
+                <input type="radio" name="method" value="range"> ② نطاق مخصص
+            </label>
+        </div>
+
+        <div class="control-group" id="countGroup">
+            <label>🔢 عدد الأرقام</label>
+            <input type="number" id="countInput" value="30" min="1" step="1">
+        </div>
+
+        <div class="range-group" id="rangeGroup" style="display:none;">
+            <div class="control-group">
+                <label>من رقم</label>
+                <input type="number" id="fromInput" value="1" min="0">
+            </div>
+            <div class="control-group">
+                <label>إلى رقم</label>
+                <input type="number" id="toInput" value="30" min="1">
+            </div>
+        </div>
+
+        <!-- حجم الورق والاتجاه -->
+        <div class="control-group">
+            <label>📄 حجم الورق</label>
+            <select id="paperSize">
+                <option value="A4" data-width="210" data-height="297">A4 (210×297mm)</option>
+                <option value="A3" data-width="297" data-height="420">A3 (297×420mm)</option>
+                <option value="A5" data-width="148" data-height="210">A5 (148×210mm)</option>
+                <option value="Letter" data-width="216" data-height="279">Letter (216×279mm)</option>
+                <option value="Legal" data-width="216" data-height="356">Legal (216×356mm)</option>
+            </select>
+        </div>
+        <div class="control-group">
+            <label>🔄 الاتجاه</label>
+            <select id="paperOrientation">
+                <option value="portrait">عمودي (Portrait)</option>
+                <option value="landscape">أفقي (Landscape)</option>
+            </select>
+        </div>
+
+        <div class="control-group">
+            <label>📐 الأعمدة</label>
+            <select id="columnsSelect">
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4" selected>4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+            </select>
+        </div>
+        
+        <!-- أبعاد الملصق -->
+        <div class="control-group">
+            <label>📏 عرض الملصق (mm)</label>
+            <input type="number" id="stickerWidth" value="60" min="15" max="200" step="1">
+        </div>
+        <div class="control-group">
+            <label>📏 ارتفاع الملصق (mm)</label>
+            <input type="number" id="stickerHeight" value="60" min="15" max="200" step="1">
+        </div>
+
+        <div class="control-group">
+            <label>🔤 حجم الرقم (mm)</label>
+            <select id="fontSizeSelect">
+                <option value="14">14</option>
+                <option value="16">16</option>
+                <option value="18" selected>18</option>
+                <option value="20">20</option>
+                <option value="22">22</option>
+                <option value="26">26</option>
+                <option value="30">30</option>
+                <option value="35">35</option>
+                <option value="40">40</option>
+                <option value="50">50</option>
+                <option value="60">60</option>
+                <option value="80">80</option>
+                <option value="100">100</option>
+                <option value="120">120</option>
+            </select>
+        </div>
+        <div class="control-group">
+            <label>📏 سماكة الإطار (mm)</label>
+            <select id="borderWidthSelect">
+                <option value="2">2</option>
+                <option value="3" selected>3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="8">8</option>
+            </select>
+        </div>
+        <div class="control-group">
+            <label>↔️ المسافة (mm)</label>
+            <select id="gapSelect">
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4" selected>4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="8">8</option>
+                <option value="10">10</option>
+                <option value="12">12</option>
+            </select>
+        </div>
+
+        <!-- اختيار الخط -->
+        <div class="control-group">
+            <label>🔤 نوع الخط</label>
+            <select id="fontSelect">
+                <option value="'Cairo', sans-serif">كايرو (Cairo)</option>
+                <option value="'Almarai', sans-serif">المرعي (Almarai)</option>
+                <option value="'El Messiri', sans-serif">المسيري (El Messiri)</option>
+                <option value="'IBM Plex Sans Arabic', sans-serif">آي بي إم (IBM Plex)</option>
+                <option value="'Lalezar', cursive">لاظار (Lalezar)</option>
+                <option value="'Noto Kufi Arabic', sans-serif">نوتو كوفي (Noto Kufi)</option>
+                <option value="'Reem Kufi', sans-serif">ريم كوفي (Reem Kufi)</option>
+                <option value="'Rubik', sans-serif">روبيك (Rubik)</option>
+                <option value="'Scheherazade New', serif">شهرزاد (Scheherazade)</option>
+                <option value="'Tajawal', sans-serif">تاجوال (Tajawal)</option>
+            </select>
+        </div>
+
+        <div class="actions no-print">
+            <button class="btn btn-primary" id="generateBtn"><span class="icon-generate"></span> إنشاء</button>
+            <button class="btn btn-print-settings" id="toggleSettingsBtn"><span class="icon-settings"></span> ضبط الطباعة</button>
+            <button class="btn btn-success" id="printBtn"><span class="icon-print"></span> طباعة</button>
+            <button class="btn btn-pdf" id="pdfBtn"><span class="icon-pdf"></span> حفظ PDF</button>
+            <button class="btn btn-danger" id="resetBtn"><span class="icon-reset"></span> إعادة ضبط</button>
+        </div>
+    </div>
+
+    <!-- ======== لوحة ضبط الطباعة ======== -->
+    <div class="print-settings-panel no-print" id="settingsPanel">
+        <div class="settings-title">⚙️ ضبط الطباعة</div>
+        <div class="settings-grid">
+            <div class="settings-group">
+                <h4>📐 الهوامش الخارجية</h4>
+                <div class="settings-row">
+                    <label>↑</label>
+                    <input type="number" id="marginTop" value="10" min="0" max="30" step="0.5">
+                    <span class="unit">mm</span>
+                </div>
+                <div class="settings-row">
+                    <label>↓</label>
+                    <input type="number" id="marginBottom" value="10" min="0" max="30" step="0.5">
+                    <span class="unit">mm</span>
+                </div>
+                <div class="settings-row">
+                    <label>→</label>
+                    <input type="number" id="marginRight" value="10" min="0" max="30" step="0.5">
+                    <span class="unit">mm</span>
+                </div>
+                <div class="settings-row">
+                    <label>←</label>
+                    <input type="number" id="marginLeft" value="10" min="0" max="30" step="0.5">
+                    <span class="unit">mm</span>
+                </div>
+            </div>
+
+            <div class="settings-group">
+                <h4>↔️ ضبط أفقي</h4>
+                <div class="settings-row">
+                    <label>إزاحة</label>
+                    <input type="number" id="offsetX" value="0" min="-30" max="30" step="0.5">
+                    <span class="unit">mm</span>
+                </div>
+                <div class="settings-row">
+                    <label>مسافة أعمدة</label>
+                    <input type="number" id="gapH" value="4" min="1" max="20" step="0.5">
+                    <span class="unit">mm</span>
+                </div>
+                <div class="move-buttons">
+                    <button class="move-btn" data-dir="left">⬅️ يسار</button>
+                    <button class="move-btn" data-dir="right">➡️ يمين</button>
+                    <button class="move-btn primary" id="centerH">🎯 توسيط أفقي</button>
+                </div>
+            </div>
+
+            <div class="settings-group">
+                <h4>↕️ ضبط رأسي</h4>
+                <div class="settings-row">
+                    <label>إزاحة</label>
+                    <input type="number" id="offsetY" value="0" min="-30" max="30" step="0.5">
+                    <span class="unit">mm</span>
+                </div>
+                <div class="settings-row">
+                    <label>مسافة صفوف</label>
+                    <input type="number" id="gapV" value="4" min="1" max="20" step="0.5">
+                    <span class="unit">mm</span>
+                </div>
+                <div class="move-buttons">
+                    <button class="move-btn" data-dir="up">⬆️ أعلى</button>
+                    <button class="move-btn" data-dir="down">⬇️ أسفل</button>
+                    <button class="move-btn primary" id="centerV">🎯 توسيط رأسي</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="settings-actions">
+            <button class="btn-sm primary" id="centerAll">🎯 توسيط كامل</button>
+            <button class="btn-sm danger" id="resetSettings">↩️ إعادة الإعدادات الافتراضية</button>
+        </div>
+    </div>
+
+    <!-- ======== معاينة ======== -->
+    <div class="preview-header no-print">
+        <h2>📋 معاينة (مطابقة للطباعة و PDF)</h2>
+        <span class="badge" id="countBadge">٠ ملصق</span>
+    </div>
+    <div id="pagesContainer" class="pages-container"></div>
+
+    <!-- ======== حقوق الملكية ======== -->
+    <div class="copyright no-print">
+        <span class="heart">♥</span> جميع الحقوق محفوظة &copy; <span>محمد رضا عوف</span> <span class="heart">♥</span>
+    </div>
+</div>
+
+<script>
+    (function() {
+        "use strict";
+
+        // عناصر DOM الأساسية
+        const countInput = document.getElementById('countInput');
+        const fromInput = document.getElementById('fromInput');
+        const toInput = document.getElementById('toInput');
+        const columnsSelect = document.getElementById('columnsSelect');
+        const stickerWidthInput = document.getElementById('stickerWidth');
+        const stickerHeightInput = document.getElementById('stickerHeight');
+        const fontSizeSelect = document.getElementById('fontSizeSelect');
+        const borderWidthSelect = document.getElementById('borderWidthSelect');
+        const gapSelect = document.getElementById('gapSelect');
+        const fontSelect = document.getElementById('fontSelect');
+        const paperSize = document.getElementById('paperSize');
+        const paperOrientation = document.getElementById('paperOrientation');
+        const generateBtn = document.getElementById('generateBtn');
+        const printBtn = document.getElementById('printBtn');
+        const pdfBtn = document.getElementById('pdfBtn');
+        const resetBtn = document.getElementById('resetBtn');
+        const pagesContainer = document.getElementById('pagesContainer');
+        const countBadge = document.getElementById('countBadge');
+        const methodRadios = document.querySelectorAll('input[name="method"]');
+        const countGroup = document.getElementById('countGroup');
+        const rangeGroup = document.getElementById('rangeGroup');
+        const toggleSettingsBtn = document.getElementById('toggleSettingsBtn');
+        const settingsPanel = document.getElementById('settingsPanel');
+
+        // عناصر الإعدادات
+        const marginTop = document.getElementById('marginTop');
+        const marginBottom = document.getElementById('marginBottom');
+        const marginRight = document.getElementById('marginRight');
+        const marginLeft = document.getElementById('marginLeft');
+        const offsetX = document.getElementById('offsetX');
+        const offsetY = document.getElementById('offsetY');
+        const gapH = document.getElementById('gapH');
+        const gapV = document.getElementById('gapV');
+        const resetSettingsBtn = document.getElementById('resetSettings');
+        const centerH = document.getElementById('centerH');
+        const centerV = document.getElementById('centerV');
+        const centerAll = document.getElementById('centerAll');
+
+        let currentNumbers = [];
+
+        // تبديل لوحة الإعدادات
+        toggleSettingsBtn.addEventListener('click', () => {
+            settingsPanel.classList.toggle('open');
+        });
+
+        // تبديل طريقة الاختيار
+        methodRadios.forEach(radio => {
+            radio.addEventListener('change', function() {
+                const isCount = this.value === 'count';
+                countGroup.style.display = isCount ? 'flex' : 'none';
+                rangeGroup.style.display = isCount ? 'none' : 'flex';
+                document.querySelectorAll('.method-toggle label').forEach(l => l.classList.remove('active'));
+                this.closest('label').classList.add('active');
+            });
+        });
+
+        function getPaperDimensions() {
+            const selected = paperSize.options[paperSize.selectedIndex];
+            let width = parseInt(selected.dataset.width);
+            let height = parseInt(selected.dataset.height);
+            const orientation = paperOrientation.value;
+            if (orientation === 'landscape') {
+                return { width: height, height: width };
+            }
+            return { width, height };
+        }
+
+        function getNumbersFromMethod() {
+            const method = document.querySelector('input[name="method"]:checked').value;
+            let numbers = [];
+            if (method === 'count') {
+                const count = parseInt(countInput.value, 10);
+                if (isNaN(count) || count < 1) {
+                    alert('يرجى إدخال عدد صحيح أكبر من 0');
+                    return null;
+                }
+                for (let i = 1; i <= count; i++) numbers.push(i);
+            } else {
+                const from = parseInt(fromInput.value, 10);
+                const to = parseInt(toInput.value, 10);
+                if (isNaN(from) || isNaN(to) || from < 0 || to < 0) {
+                    alert('يرجى إدخال أرقام صحيحة');
+                    return null;
+                }
+                if (from > to) {
+                    alert('رقم "من" يجب أن يكون أصغر من أو يساوي "إلى"');
+                    return null;
+                }
+                for (let i = from; i <= to; i++) numbers.push(i);
+            }
+            if (numbers.length === 0) {
+                alert('لا توجد أرقام في هذا النطاق');
+                return null;
+            }
+            return numbers;
+        }
+
+        function generateStickers() {
+            const numbers = getNumbersFromMethod();
+            if (!numbers) return;
+            currentNumbers = numbers.slice();
+
+            const cols = parseInt(columnsSelect.value, 10);
+            const stickerWidth = parseInt(stickerWidthInput.value, 10);
+            const stickerHeight = parseInt(stickerHeightInput.value, 10);
+            const fontSizeMM = parseInt(fontSizeSelect.value, 10);
+            const borderMM = parseInt(borderWidthSelect.value, 10);
+            const gapMM = parseInt(gapSelect.value, 10);
+            const selectedFont = fontSelect.value;
+            const paperDim = getPaperDimensions();
+
+            const gH = parseFloat(gapH.value) || 4;
+            const gV = parseFloat(gapV.value) || 4;
+            const mT = parseFloat(marginTop.value) || 10;
+            const mB = parseFloat(marginBottom.value) || 10;
+            const mR = parseFloat(marginRight.value) || 10;
+            const mL = parseFloat(marginLeft.value) || 10;
+            const offX = parseFloat(offsetX.value) || 0;
+            const offY = parseFloat(offsetY.value) || 0;
+
+            // حساب عدد الصفوف التي يمكن وضعها في الصفحة
+            const availableHeight = paperDim.height - mT - mB;
+            const totalHeightPerRow = stickerHeight + gV;
+            const maxRows = Math.floor((availableHeight + gV) / totalHeightPerRow);
+            const rows = Math.max(1, Math.min(maxRows, 10));
+            const perPage = cols * rows;
+
+            const pages = [];
+            for (let i = 0; i < numbers.length; i += perPage) {
+                pages.push(numbers.slice(i, i + perPage));
+            }
+
+            renderPages(pages, cols, rows, stickerWidth, stickerHeight, fontSizeMM, borderMM, gapMM, gH, gV, mT, mB, mR, mL, offX, offY, selectedFont, paperDim);
+            countBadge.textContent = `${numbers.length} ملصق`;
+        }
+
+        function renderPages(pages, cols, rows, stickerWidth, stickerHeight, fontSizeMM, borderMM, gapMM, gH, gV, mT, mB, mR, mL, offX, offY, selectedFont, paperDim) {
+            pagesContainer.innerHTML = '';
+            if (pages.length === 0) {
+                pagesContainer.innerHTML = '<div style="padding:30px;text-align:center;color:#94a3b8;">لا توجد ملصقات</div>';
+                return;
+            }
+
+            // تعيين أبعاد الصفحة
+            const pageWidth = paperDim.width;
+            const pageHeight = paperDim.height;
+            
+            pagesContainer.style.setProperty('--page-width', pageWidth + 'mm');
+            pagesContainer.style.setProperty('--page-height', pageHeight + 'mm');
+            pagesContainer.style.setProperty('--page-size', paperSize.value);
+            pagesContainer.style.setProperty('--sticker-font', selectedFont);
+            pagesContainer.style.setProperty('--sticker-width', stickerWidth + 'mm');
+            pagesContainer.style.setProperty('--sticker-height', stickerHeight + 'mm');
+            pagesContainer.style.setProperty('--cols', cols);
+            pagesContainer.style.setProperty('--border-mm', borderMM + 'mm');
+            pagesContainer.style.setProperty('--number-size-mm', fontSizeMM + 'mm');
+            pagesContainer.style.setProperty('--gap-h', gH + 'mm');
+            pagesContainer.style.setProperty('--gap-v', gV + 'mm');
+            pagesContainer.style.setProperty('--padding-top', mT + 'mm');
+            pagesContainer.style.setProperty('--padding-bottom', mB + 'mm');
+            pagesContainer.style.setProperty('--padding-right', mR + 'mm');
+            pagesContainer.style.setProperty('--padding-left', mL + 'mm');
+            pagesContainer.style.setProperty('--offset-x', offX + 'mm');
+            pagesContainer.style.setProperty('--offset-y', offY + 'mm');
+
+            pages.forEach((pageNumbers, idx) => {
+                const pageDiv = document.createElement('div');
+                pageDiv.className = 'a4-page';
+                pageDiv.style.width = pageWidth + 'mm';
+                pageDiv.style.minHeight = pageHeight + 'mm';
+
+                const label = document.createElement('div');
+                label.className = 'page-label';
+                label.textContent = `صفحة ${idx + 1} · ${pageNumbers.length} ملصق · ${paperSize.value} ${paperOrientation.value === 'landscape' ? 'أفقي' : 'عمودي'}`;
+                pageDiv.appendChild(label);
+
+                const grid = document.createElement('div');
+                grid.className = 'sticker-grid';
+                grid.style.setProperty('--cols', cols);
+                grid.style.setProperty('--gap-h', gH + 'mm');
+                grid.style.setProperty('--gap-v', gV + 'mm');
+                grid.style.setProperty('--padding-top', mT + 'mm');
+                grid.style.setProperty('--padding-bottom', mB + 'mm');
+                grid.style.setProperty('--padding-right', mR + 'mm');
+                grid.style.setProperty('--padding-left', mL + 'mm');
+                grid.style.setProperty('--offset-x', offX + 'mm');
+                grid.style.setProperty('--offset-y', offY + 'mm');
+
+                pageNumbers.forEach(num => {
+                    const sticker = document.createElement('div');
+                    sticker.className = 'sticker-item';
+                    sticker.style.fontFamily = selectedFont;
+                    sticker.style.width = stickerWidth + 'mm';
+                    sticker.style.height = stickerHeight + 'mm';
+                    sticker.style.setProperty('--sticker-width', stickerWidth + 'mm');
+                    sticker.style.setProperty('--sticker-height', stickerHeight + 'mm');
+
+                    const digits = String(num).length;
+                    const numberSpan = document.createElement('span');
+                    numberSpan.className = 'number-3d';
+                    numberSpan.textContent = num;
+                    numberSpan.setAttribute('data-digits', digits);
+                    numberSpan.style.setProperty('--number-size-mm', fontSizeMM + 'mm');
+                    numberSpan.style.fontFamily = selectedFont;
+
+                    // تكيف حجم الرقم حسب عدد الخانات
+                    let adjustedSize = fontSizeMM;
+                    if (digits >= 6) adjustedSize = Math.min(fontSizeMM, Math.max(8.5, fontSizeMM * 0.4));
+                    else if (digits >= 5) adjustedSize = Math.min(fontSizeMM, Math.max(10.5, fontSizeMM * 0.5));
+                    else if (digits >= 4) adjustedSize = Math.min(fontSizeMM, Math.max(13, fontSizeMM * 0.6));
+                    else if (digits >= 3) adjustedSize = Math.min(fontSizeMM, Math.max(17, fontSizeMM * 0.75));
+                    else if (digits >= 2) adjustedSize = Math.min(fontSizeMM, Math.max(22, fontSizeMM * 0.85));
+                    numberSpan.style.fontSize = adjustedSize + 'mm';
+
+                    sticker.style.borderWidth = borderMM + 'mm';
+                    const shadowDepth = Math.min(6, borderMM + 2);
+                    sticker.style.boxShadow = `0 ${shadowDepth}mm 0 #0f172a, 0 6mm 14mm -4mm rgba(0,0,0,0.2)`;
+
+                    sticker.appendChild(numberSpan);
+                    grid.appendChild(sticker);
+                });
+
+                pageDiv.appendChild(grid);
+                pagesContainer.appendChild(pageDiv);
+            });
+        }
+
+        function reRender() {
+            if (currentNumbers.length === 0) {
+                generateStickers();
+                return;
+            }
+            const cols = parseInt(columnsSelect.value, 10);
+            const stickerWidth = parseInt(stickerWidthInput.value, 10);
+            const stickerHeight = parseInt(stickerHeightInput.value, 10);
+            const fontSizeMM = parseInt(fontSizeSelect.value, 10);
+            const borderMM = parseInt(borderWidthSelect.value, 10);
+            const gapMM = parseInt(gapSelect.value, 10);
+            const selectedFont = fontSelect.value;
+            const paperDim = getPaperDimensions();
+            const gH = parseFloat(gapH.value) || 4;
+            const gV = parseFloat(gapV.value) || 4;
+            const mT = parseFloat(marginTop.value) || 10;
+            const mB = parseFloat(marginBottom.value) || 10;
+            const mR = parseFloat(marginRight.value) || 10;
+            const mL = parseFloat(marginLeft.value) || 10;
+            const offX = parseFloat(offsetX.value) || 0;
+            const offY = parseFloat(offsetY.value) || 0;
+
+            const availableHeight = paperDim.height - mT - mB;
+            const totalHeightPerRow = stickerHeight + gV;
+            const maxRows = Math.floor((availableHeight + gV) / totalHeightPerRow);
+            const rows = Math.max(1, Math.min(maxRows, 10));
+            const perPage = cols * rows;
+
+            const pages = [];
+            for (let i = 0; i < currentNumbers.length; i += perPage) {
+                pages.push(currentNumbers.slice(i, i + perPage));
+            }
+            renderPages(pages, cols, rows, stickerWidth, stickerHeight, fontSizeMM, borderMM, gapMM, gH, gV, mT, mB, mR, mL, offX, offY, selectedFont, paperDim);
+            countBadge.textContent = `${currentNumbers.length} ملصق`;
+        }
+
+        // أزرار التحريك
+        document.querySelectorAll('.move-btn[data-dir]').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const dir = this.dataset.dir;
+                const step = 0.5;
+                if (dir === 'left') { 
+                    let cur = parseFloat(offsetX.value) || 0;
+                    offsetX.value = (cur - step).toFixed(1);
+                }
+                else if (dir === 'right') { 
+                    let cur = parseFloat(offsetX.value) || 0;
+                    offsetX.value = (cur + step).toFixed(1);
+                }
+                else if (dir === 'up') { 
+                    let cur = parseFloat(offsetY.value) || 0;
+                    offsetY.value = (cur - step).toFixed(1);
+                }
+                else if (dir === 'down') {
+                    let cur = parseFloat(offsetY.value) || 0;
+                    offsetY.value = (cur + step).toFixed(1);
+                }
+                reRender();
+            });
+        });
+
+        // توسيط أفقي
+        centerH.addEventListener('click', function() {
+            const cols = parseInt(columnsSelect.value, 10);
+            const stickerWidth = parseInt(stickerWidthInput.value, 10);
+            const gHVal = parseFloat(gapH.value) || 4;
+            const paperDim = getPaperDimensions();
+            const totalWidth = (cols * stickerWidth) + ((cols - 1) * gHVal);
+            const marginVal = (paperDim.width - totalWidth) / 2;
+            marginLeft.value = Math.max(0, marginVal).toFixed(1);
+            marginRight.value = Math.max(0, marginVal).toFixed(1);
+            offsetX.value = '0';
+            reRender();
+        });
+
+        // توسيط رأسي
+        centerV.addEventListener('click', function() {
+            const stickerHeight = parseInt(stickerHeightInput.value, 10);
+            const gVVal = parseFloat(gapV.value) || 4;
+            const paperDim = getPaperDimensions();
+            const availableHeight = paperDim.height - parseFloat(marginTop.value) - parseFloat(marginBottom.value);
+            const totalHeightPerRow = stickerHeight + gVVal;
+            const rows = Math.floor((availableHeight + gVVal) / totalHeightPerRow);
+            const totalHeight = (rows * stickerHeight) + ((rows - 1) * gVVal);
+            const marginVal = (paperDim.height - totalHeight) / 2;
+            marginTop.value = Math.max(0, marginVal).toFixed(1);
+            marginBottom.value = Math.max(0, marginVal).toFixed(1);
+            offsetY.value = '0';
+            reRender();
+        });
+
+        // توسيط كامل
+        centerAll.addEventListener('click', function() {
+            centerH.click();
+            centerV.click();
+        });
+
+        // إعادة الإعدادات الافتراضية
+        resetSettingsBtn.addEventListener('click', function() {
+            marginTop.value = '10';
+            marginBottom.value = '10';
+            marginRight.value = '10';
+            marginLeft.value = '10';
+            offsetX.value = '0';
+            offsetY.value = '0';
+            gapH.value = '4';
+            gapV.value = '4';
+            reRender();
+        });
+
+        // ربط أحداث الإدخال للتحديث الفوري
+        [marginTop, marginBottom, marginRight, marginLeft, offsetX, offsetY, gapH, gapV, fontSelect, stickerWidthInput, stickerHeightInput, paperSize, paperOrientation].forEach(el => {
+            el.addEventListener('input', reRender);
+            el.addEventListener('change', reRender);
+        });
+
+        // طباعة باستخدام window.print() الأصلي
+        function printStickers() {
+            if (currentNumbers.length === 0) {
+                alert('يرجى إنشاء الملصقات أولاً');
+                return;
+            }
+            window.print();
+        }
+
+        // حفظ PDF - نفس آلية الطباعة
+        function savePdf() {
+            if (currentNumbers.length === 0) {
+                alert('يرجى إنشاء الملصقات أولاً');
+                return;
+            }
+            window.print();
+        }
+
+        function resetDefaults() {
+            countInput.value = '30';
+            fromInput.value = '1';
+            toInput.value = '30';
+            columnsSelect.value = '4';
+            stickerWidthInput.value = '60';
+            stickerHeightInput.value = '60';
+            fontSizeSelect.value = '18';
+            borderWidthSelect.value = '3';
+            gapSelect.value = '4';
+            fontSelect.value = "'Cairo', sans-serif";
+            paperSize.value = 'A4';
+            paperOrientation.value = 'portrait';
+            document.querySelector('input[name="method"][value="count"]').checked = true;
+            countGroup.style.display = 'flex';
+            rangeGroup.style.display = 'none';
+            document.querySelectorAll('.method-toggle label').forEach(l => l.classList.remove('active'));
+            document.querySelector('label[for="methodCountLabel"]')?.classList.add('active');
+            marginTop.value = '10';
+            marginBottom.value = '10';
+            marginRight.value = '10';
+            marginLeft.value = '10';
+            offsetX.value = '0';
+            offsetY.value = '0';
+            gapH.value = '4';
+            gapV.value = '4';
+            generateStickers();
+        }
+
+        generateBtn.addEventListener('click', generateStickers);
+        printBtn.addEventListener('click', printStickers);
+        pdfBtn.addEventListener('click', savePdf);
+        resetBtn.addEventListener('click', resetDefaults);
+
+        countInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') generateStickers(); });
+        fromInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') generateStickers(); });
+        toInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') generateStickers(); });
+
+        toInput.addEventListener('change', function() {
+            const from = parseInt(fromInput.value, 10);
+            const to = parseInt(toInput.value, 10);
+            if (!isNaN(from) && !isNaN(to) && to < from) {
+                toInput.value = from;
+            }
+        });
+
+        window.addEventListener('DOMContentLoaded', () => {
+            resetDefaults();
+        });
+
+        console.log('✅ مشروع ملصقات - تحكم كامل بحجم الورق والاتجاه');
+        console.log('✅ أحجام الورق المدعومة: A4, A3, A5, Letter, Legal');
+        console.log('✅ حقوق الملكية: محمد رضا عوف');
+    })();
+</script>
+</body>
+</html>
